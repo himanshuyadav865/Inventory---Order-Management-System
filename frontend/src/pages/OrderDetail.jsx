@@ -126,13 +126,13 @@ const OrderDetail = () => {
                     </span>
                   </td>
                   <td style={{ textAlign: 'right' }}>
-                    ${parseFloat(item.unit_price).toFixed(2)}
+                    ₹{parseFloat(item.unit_price).toFixed(2)}
                   </td>
                   <td style={{ textAlign: 'center', fontWeight: 600 }}>
                     {item.quantity} units
                   </td>
                   <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--text-main)' }}>
-                    ${(parseFloat(item.unit_price) * item.quantity).toFixed(2)}
+                    ₹{(parseFloat(item.unit_price) * item.quantity).toFixed(2)}
                   </td>
                 </tr>
               ))}
@@ -143,7 +143,7 @@ const OrderDetail = () => {
                   Total Invoice Amount
                 </td>
                 <td style={{ textAlign: 'right', borderBottom: 'none', color: 'var(--secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-secondary)' }}>
-                  ${parseFloat(order.total_amount).toFixed(2)}
+                  ₹{parseFloat(order.total_amount).toFixed(2)}
                 </td>
               </tr>
             </tbody>

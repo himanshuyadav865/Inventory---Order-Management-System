@@ -198,7 +198,7 @@ const Products = () => {
                     </span>
                   </td>
                   <td style={{ fontWeight: 500, color: 'var(--secondary)' }}>
-                    ${parseFloat(product.price).toFixed(2)}
+                    ₹{parseFloat(product.price).toFixed(2)}
                   </td>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -264,7 +264,7 @@ const Products = () => {
             {errors.sku && <span style={{ color: 'var(--danger)', fontSize: '0.75rem' }}>{errors.sku}</span>}
           </div>
           <div className="form-group">
-            <label className="form-label">Price ($) *</label>
+            <label className="form-label">Price (₹) *</label>
             <input
               type="number"
               name="price"
@@ -329,7 +329,7 @@ const Products = () => {
             {errors.sku && <span style={{ color: 'var(--danger)', fontSize: '0.75rem' }}>{errors.sku}</span>}
           </div>
           <div className="form-group">
-            <label className="form-label">Price ($) *</label>
+            <label className="form-label">Price (₹) *</label>
             <input
               type="number"
               name="price"

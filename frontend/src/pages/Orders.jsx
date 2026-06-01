@@ -204,7 +204,7 @@ const Orders = () => {
                     {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
                   </td>
                   <td style={{ fontWeight: 700, color: 'var(--secondary)' }}>
-                    ${parseFloat(order.total_amount).toFixed(2)}
+                    ₹{parseFloat(order.total_amount).toFixed(2)}
                   </td>
                   <td>
                     {new Date(order.created_at).toLocaleDateString(undefined, {
@@ -297,7 +297,7 @@ const Orders = () => {
                     <option value="">-- Select Product --</option>
                     {productsList.map(p => (
                       <option key={p.id} value={p.id} disabled={p.stock_quantity === 0}>
-                        {p.name} (${parseFloat(p.price).toFixed(2)}) {p.stock_quantity === 0 ? '[Out of Stock]' : `[Stock: ${p.stock_quantity}]`}
+                        {p.name} (₹{parseFloat(p.price).toFixed(2)}) {p.stock_quantity === 0 ? '[Out of Stock]' : `[Stock: ${p.stock_quantity}]`}
                       </option>
                     ))}
                   </select>
@@ -319,7 +319,7 @@ const Orders = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '40px', paddingLeft: '4px' }}>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Price</span>
                   <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-light)' }}>
-                    ${(parseFloat(item.price) * (item.quantity || 0)).toFixed(2)}
+                    ₹{(parseFloat(item.price) * (item.quantity || 0)).toFixed(2)}
                   </span>
                 </div>
 
@@ -350,7 +350,7 @@ const Orders = () => {
             </div>
             <div className="summary-row total">
               <span>Total Price Preview:</span>
-              <span>${getOrderTotal().toFixed(2)}</span>
+              <span>₹{getOrderTotal().toFixed(2)}</span>
             </div>
           </div>
         </form>

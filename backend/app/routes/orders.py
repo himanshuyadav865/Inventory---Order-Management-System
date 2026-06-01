@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.database import get_db
 from app.auth import get_current_user
 from app.models.order import Order
+from app.models.order_item import OrderItem
 from app.schemas.order import OrderCreate, OrderResponse
 from app.services.inventory import create_order_transaction
 
@@ -38,7 +39,7 @@ def create_order(order_data: OrderCreate, db: Session = Depends(get_db)):
     # Reload with joined relationships to prevent lazy loading issues
     refreshed_order = db.query(Order).options(
         joinedload(Order.customer),
-        joinedload(Order.items).joinedload(lambda x: x.product)
+        joinedload(Order.items).joinedload(OrderItem.product)
     ).filter(Order.id == new_order.id).first()
     
     return format_order_to_response(refreshed_order)
@@ -48,7 +49,7 @@ def get_orders(db: Session = Depends(get_db)):
     # Eagerly load customer and items to optimize database performance
     orders = db.query(Order).options(
         joinedload(Order.customer),
-        joinedload(Order.items).joinedload(lambda x: x.product)
+        joinedload(Order.items).joinedload(OrderItem.product)
     ).order_by(Order.created_at.desc()).all()
     
     return [format_order_to_response(order) for order in orders]
@@ -57,7 +58,7 @@ def get_orders(db: Session = Depends(get_db)):
 def get_order(id: UUID, db: Session = Depends(get_db)):
     order = db.query(Order).options(
         joinedload(Order.customer),
-        joinedload(Order.items).joinedload(lambda x: x.product)
+        joinedload(Order.items).joinedload(OrderItem.product)
     ).filter(Order.id == id).first()
     
     if not order:

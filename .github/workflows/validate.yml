@@ -1,0 +1,40 @@
+name: Validate Build
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Validate Backend Build
+      uses: docker/build-push-action@v4
+      with:
+        context: ./backend
+        file: ./backend/Dockerfile
+        push: false
+        tags: inventory-backend:test
+
+    - name: Validate Frontend Build
+      uses: docker/build-push-action@v4
+      with:
+        context: ./frontend
+        file: ./frontend/Dockerfile
+        push: false
+        tags: inventory-frontend:test
+
+    - name: Test Docker Compose Up
+      run: |
+        docker-compose up -d --build
+        docker-compose ps
+        docker-compose down

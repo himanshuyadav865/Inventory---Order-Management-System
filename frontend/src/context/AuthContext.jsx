@@ -1,11 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../services/firebase';
-import { 
-  onAuthStateChanged, 
-  signInWithEmailAndPassword, 
-  signOut,
-  createUserWithEmailAndPassword
-} from 'firebase/auth';
 
 const AuthContext = createContext(null);
 
@@ -14,23 +7,21 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
-    return unsubscribe;
+    // Mocking an authenticated user
+    setCurrentUser({ uid: 'mock-user-123', email: 'test@example.com' });
+    setLoading(false);
   }, []);
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    setCurrentUser({ uid: 'mock-user-123', email });
   };
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const signup = async (email, password) => {
+    setCurrentUser({ uid: 'mock-user-123', email });
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    setCurrentUser(null);
   };
 
   const value = {

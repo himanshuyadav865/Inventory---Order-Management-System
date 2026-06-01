@@ -35,6 +35,6 @@ jobs:
 
     - name: Test Docker Compose Up
       run: |
-        docker-compose up -d --build
-        docker-compose ps
-        docker-compose down
+        docker compose up -d --build
+        docker compose ps
+        docker compose down

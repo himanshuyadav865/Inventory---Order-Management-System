@@ -1,12 +1,9 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, LogOut, User } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { Menu } from 'lucide-react';
 
 const Header = ({ toggleSidebar }) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { currentUser, logout } = useAuth();
 
   const getTitle = () => {
     const path = location.pathname;
@@ -16,15 +13,6 @@ const Header = ({ toggleSidebar }) => {
     if (path.startsWith('/orders/')) return 'Order Details';
     if (path.startsWith('/orders')) return 'Order Registry';
     return 'Management Console';
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/login');
-    } catch (err) {
-      console.error("Failed to log out", err);
-    }
   };
 
   return (
@@ -37,17 +25,7 @@ const Header = ({ toggleSidebar }) => {
       </div>
       
       <div className="header-actions">
-        {currentUser && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(30, 41, 59, 0.5)', padding: '0.35rem 0.75rem', borderRadius: '9999px', border: '1px solid var(--border)' }}>
-              <User size={14} style={{ color: 'var(--text-muted)' }}/>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 500 }}>{currentUser.email}</span>
-            </div>
-            <button onClick={handleLogout} className="btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <LogOut size={14} /> Logout
-            </button>
-          </div>
-        )}
+        {/* Actions can be added here in the future */}
       </div>
     </header>
   );
